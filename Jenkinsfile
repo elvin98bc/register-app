@@ -28,11 +28,15 @@ pipeline {
 
 		stage("Build Application"){
 		    steps {
-				sh "cat pom.xml | grep -A 2 'source>'"
-                sh "cat server/pom.xml"
-		        sh "mvn clean package -U"  // Add -U flag to force update
+		        sh """
+		            mvn clean package \
+		            -Dmaven.compiler.source=8 \
+		            -Dmaven.compiler.target=8 \
+		            -Dmaven.compiler.release=8
+		        """
 		    }
 		}
+
 
        stage("Test Application"){
            steps {
