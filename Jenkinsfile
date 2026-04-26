@@ -39,29 +39,15 @@ pipeline {
            }
        }
 
-       // stage("SonarQube Analysis"){
-       //     steps {
-	      //      script {
-		     //    withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') { 
-       //                  sh "mvn sonar:sonar"
-		     //    }
-	      //      }	
-       //     }
-       // }
-
-		stage("SonarQube Analysis"){
-		    steps {
-		        script {
-		            withEnv(["JAVA_HOME=${tool 'Java21'}", "PATH=${tool 'Java21'}/bin:${env.PATH}"]) {
-		                sh "java -version"  // Verify Java 21
-		
-		                withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
-		                    sh "${tool 'Maven3'}/bin/mvn sonar:sonar"
-		                }
-		            }
+       stage("SonarQube Analysis"){
+           steps {
+	           script {
+		        withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') { 
+                        sh "mvn sonar:sonar"
 		        }
-		    }
-		}
+	           }	
+           }
+       }
 
        // stage("Quality Gate"){
        //     steps {
