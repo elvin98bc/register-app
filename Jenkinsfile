@@ -52,14 +52,11 @@ pipeline {
 		stage("SonarQube Analysis"){
 		    steps {
 		        script {
-		            // Switch to Java 21 for SonarQube analysis
-		            withEnv(["JAVA_HOME=${tool 'Java21'}", "PATH+JAVA=${tool 'Java21'}/bin"]) {
-		                // Verify Java version
-		                sh "java -version"
-		                sh "echo JAVA_HOME: \$JAVA_HOME"
+		            withEnv(["JAVA_HOME=${tool 'Java21'}", "PATH=${tool 'Java21'}/bin:${env.PATH}"]) {
+		                sh "java -version"  // Verify Java 21
 		
 		                withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
-		                    sh "mvn sonar:sonar"
+		                    sh "${tool 'Maven3'}/bin/mvn sonar:sonar"
 		                }
 		            }
 		        }
