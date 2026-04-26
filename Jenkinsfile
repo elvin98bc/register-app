@@ -28,11 +28,10 @@ pipeline {
 
 		stage("Build Application"){
 		    steps {
+		        sh "pwd"
+		        sh "ls -la"
 		        sh """
-		            mvn clean package \
-		            -Dmaven.compiler.source=8 \
-		            -Dmaven.compiler.target=8 \
-		            -Dmaven.compiler.release=8
+		            mvn clean package
 		        """
 		    }
 		}
