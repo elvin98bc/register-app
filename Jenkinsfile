@@ -26,12 +26,11 @@ pipeline {
                 }
         }
 
-        stage("Build Application"){
-            steps {
-                sh "mvn clean package"
-            }
-
-       }
+		stage("Build Application"){
+		    steps {
+		        sh "mvn clean package -U"  // Add -U flag to force update
+		    }
+		}
 
        stage("Test Application"){
            steps {
