@@ -31,6 +31,7 @@ pipeline {
 		    steps {
 		        sh "pwd"
 		        sh "ls -la"
+				sh "cat pom.xml | grep 1.7"
 		        sh """
 		            mvn clean package
 		        """
