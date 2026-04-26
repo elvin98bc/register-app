@@ -20,11 +20,12 @@ pipeline {
                 }
         }
 
-        stage("Checkout from SCM"){
-                steps {
-                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/Ashfaque-9x/register-app'
-                }
-        }
+		stage("Checkout from SCM"){
+		    steps {
+		        deleteDir()  // Delete everything first
+		        git branch: 'main', credentialsId: 'github', url: 'https://github.com/elvin98bc/register-app'
+		    }
+		}
 
 		stage("Build Application"){
 		    steps {
