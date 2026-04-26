@@ -39,15 +39,30 @@ pipeline {
            }
        }
 
-       stage("SonarQube Analysis"){
-           steps {
-	           script {
-		        withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') { 
-                        sh "mvn sonar:sonar"
+       // stage("SonarQube Analysis"){
+       //     steps {
+	      //      script {
+		     //    withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') { 
+       //                  sh "mvn sonar:sonar"
+		     //    }
+	      //      }	
+       //     }
+       // }
+
+		stage("SonarQube Analysis"){
+		    steps {
+		        script {
+		            // Temporarily use Java 17/21 for SonarQube
+		            def javaHome = tool name: 'Java21', type: 'jdk'
+		            env.JAVA_HOME = javaHome
+		            env.PATH = "${javaHome}/bin:${env.PATH}"
+		
+		            withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
+		                sh "mvn sonar:sonar"
+		            }
 		        }
-	           }	
-           }
-       }
+		    }
+		}
 
        // stage("Quality Gate"){
        //     steps {
